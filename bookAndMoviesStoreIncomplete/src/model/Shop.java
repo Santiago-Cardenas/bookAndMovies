@@ -71,7 +71,26 @@ public class Shop {
 	 * informando que el producto ya existe. 
 	 */
 	public String addProduct(String code,String name, int units, double price, ProductType type) {
-		return "";
+		
+		boolean found=false;
+		String msg="";
+
+		for(int pos=0; pos<catalog.size() && !found; pos++){
+
+			if(catalog.get(pos).getCode()==code){
+				msg+="This product already exist";
+				found=true;
+			}
+
+		}
+
+		if(found=false){
+			ProductForSale product= new ProductForSale(code,name,units,price,type);
+			catalog.add(product);
+			msg+="The product has been registered";
+		}
+
+		return msg;
 	}
 	
 
@@ -89,7 +108,26 @@ public class Shop {
 	 * informando que el producto ya existe. 
 	 */
 	public String addProduct(String code, String name, double price, ProductType type) {
-		return "";
+		boolean found=false;
+		String msg="";
+		
+		for(int pos=0; pos<catalog.size() && !found; pos++){
+
+			if(catalog.get(pos).getCode()==code){
+				msg+="This product already exist";
+				found=true;
+			}
+
+		}
+
+		if(found=false){
+			ProductForRent product= new ProductForRent(code,name,price,type);
+			product.setState(State.AVAILABLE);
+			catalog.add(product);
+			msg+="The product has been registered";
+		}
+
+		return msg;
 	}
 	
 	/**

@@ -1,8 +1,5 @@
 package ui;
 
-
-
-
 import model.ProductType;
 import model.Shop;
 
