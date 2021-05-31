@@ -292,7 +292,19 @@ public class Shop {
 		 * si no: 
 		 *  - Se muestra un mensaje reportando el error.
 		 */
-		return"";
+		String msg="";
+		double totalPrice=0;
+		if(p.isSafeRent()){
+
+			totalPrice=p.getRentPrice(days);
+			p.rentProduct(days);
+			msg+="The product has been rented at: " + totalPrice + "\n";
+		}
+		else{
+			msg+="The product cannot be rented\n";
+		}
+
+		return msg;
 	}
 	
 
