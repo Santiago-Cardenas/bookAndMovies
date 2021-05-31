@@ -2,6 +2,7 @@ package ui;
 
 import java.util.Scanner;
 import model.Shop;
+import model.ProductType;
 
 /**
  * 
@@ -15,7 +16,7 @@ public class MainShop {
 	public MainShop() {
 		shop= new Shop("AP1's book store");
 	}
-
+	
 	public static void main(String[] args) {
 		
 		MainShop mainObject= new MainShop();
@@ -23,8 +24,7 @@ public class MainShop {
 		do {
 			option=mainObject.showMenuAndReadInput();
 			mainObject.dispatchOption(option);
-		}while(option!=0);
-		
+		}while(option!=0);	
 	}
 
 	public void dispatchOption(int option) {
@@ -45,9 +45,7 @@ public class MainShop {
 			processProduct();
 			break;
 				
-		}
-		
-		
+		}	
 	}
 
 	public void rentProduct(String code) {
@@ -58,10 +56,7 @@ public class MainShop {
 		sc.nextLine();
 		
 		String answer =shop.rentProduct(code, days);
-		System.out.println(answer);
-		
-		
-		
+		System.out.println(answer);		
 	}
 	
 	public void saleProduct(String code) {
@@ -78,9 +73,7 @@ public class MainShop {
 		
 		String answer = shop.saleProduct(code, units2Buy, discount);
 		
-		System.out.println(answer);
-		
-		
+		System.out.println(answer);	
 	}
 
 	public void processProduct() {
@@ -102,14 +95,11 @@ public class MainShop {
 				System.out.println("Sorry, there's no product with that code");
 				
 		}
-		
-
 	}
 
 	public  void createScenario() {
 		TestScenario scenario = new TestScenario();
-		scenario.createScenario1(shop);
-		
+		scenario.createScenario1(shop);		
 	}
 
 	public int showMenuAndReadInput() {
@@ -125,14 +115,93 @@ public class MainShop {
 		sc.nextLine();
 		
 		return number;
-		
-		
 	}
 	
 	public void addProductCatalog() {
-		
-	}
-	
-	
 
+		System.out.println("Is this product goint to be for sale or for rent\n"+
+						   "1: For sale\n"+
+						   "2: For rent\n");
+		int use = sc.nextInt();
+		sc.nextLine();
+
+		System.out.println("Register a code for this product please: ");
+		String code= sc.nextLine();
+
+		System.out.println("Register a name for this product please: ");
+		String name= sc.nextLine();
+
+		System.out.println("Register a price for this product please: ");
+		double price= sc.nextDouble();
+
+		System.out.println("Which of the following types of product matches the one you are trying to register:\n"+
+						   "1:Book\n"+
+						   "2:Magazine\n"+
+						   "3:DVD Movie\n"+
+						   "4:Downloadable Movie");
+		int type = sc.nextInt();
+
+		switch (use){
+
+			case 1:
+
+				System.out.println("Register the amount of unit you have of this product please: ");
+				int units= sc.nextInt();
+
+				switch (type){
+
+					case 1:
+						System.out.println(shop.addProduct(code,name,units,price,ProductType.BOOK));
+					break;
+
+					case 2:
+						System.out.println(shop.addProduct(code,name,units,price,ProductType.MAGAZINE));
+					break;
+
+					case 3:
+						System.out.println(shop.addProduct(code,name,units,price,ProductType.DVD_MOVIE));
+					break;
+
+					case 4:
+						System.out.println(shop.addProduct(code,name,units,price,ProductType.DOWNLOAD_MOVIE));
+					break;
+
+					default:
+						System.out.println("Please enter a valid type");
+					break;
+				}
+
+			break;
+
+			case 2:
+				switch (type){
+
+					case 1:
+						System.out.println(shop.addProduct(code,name,price,ProductType.BOOK));
+					break;
+
+					case 2:
+						System.out.println(shop.addProduct(code,name,price,ProductType.MAGAZINE));
+					break;
+
+					case 3:
+						System.out.println(shop.addProduct(code,name,price,ProductType.DVD_MOVIE));
+					break;
+
+					case 4:
+						System.out.println(shop.addProduct(code,name,price,ProductType.DOWNLOAD_MOVIE));
+					break;
+
+					default:
+						System.out.println("Please enter a valid type");
+					break;
+				}
+			break;
+
+			default:
+				System.out.println("Please enter a valid use option (sale/rent)");
+			break;
+		}
+	}
 }
+		

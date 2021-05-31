@@ -77,19 +77,18 @@ public class Shop {
 
 		for(int pos=0; pos<catalog.size() && !found; pos++){
 
-			if(catalog.get(pos).getCode()==code){
+			if(catalog.get(pos).getCode().equalsIgnoreCase(code)){
 				msg+="This product already exist";
 				found=true;
 			}
 
 		}
 
-		if(found=false){
+		if(!found){
 			ProductForSale product= new ProductForSale(code,name,units,price,type);
 			catalog.add(product);
 			msg+="The product has been registered";
 		}
-
 		return msg;
 	}
 	
@@ -113,14 +112,14 @@ public class Shop {
 		
 		for(int pos=0; pos<catalog.size() && !found; pos++){
 
-			if(catalog.get(pos).getCode()==code){
+			if(catalog.get(pos).getCode().equalsIgnoreCase(code)){
 				msg+="This product already exist";
 				found=true;
 			}
 
 		}
 
-		if(found=false){
+		if(!found){
 			ProductForRent product= new ProductForRent(code,name,price,type);
 			product.setState(State.AVAILABLE);
 			catalog.add(product);
@@ -136,7 +135,12 @@ public class Shop {
 	 * @return cadena con la informacion de los productos
 	 */
 	public String showCatalog() {
-		return "";
+		String msg="";
+
+		for(int pos=0; pos<catalog.size(); pos++){
+			msg+= catalog.get(pos).getInformation() + "\n\n";
+		}
+		return msg;
 	}
 	
 	/**
@@ -149,9 +153,15 @@ public class Shop {
 	 * no contiene un producto con ese código
 	 */
 	public Product findProduct(String code) {
-		Product p=null;
-		
-		return p;
+		Product product=null;
+		Boolean found=false;
+			for(int pos=0; pos<catalog.size() && !found ;pos++){
+				if(catalog.get(pos).getCode().equalsIgnoreCase(code)){
+					product=catalog.get(pos);
+					found=true;
+				}
+			}
+		return product;
 	}
 	
 	
@@ -243,8 +253,19 @@ public class Shop {
 		 * si no: 
 		 *  - Se muestra un mensaje reportando el error.
 		 */
-		return "";
-		
+		String msg="";
+		double totalPrice=0;
+		if(p.isSafeSale(units)){
+            totalPrice= p.getSalePrice(units);
+            totalPrice= p.applyExtraDiscount(totalPrice,discount);
+            totalPrice= p.calculateTax(totalPrice,TAX_IVA);
+            totalSales++;
+            msg+= "The product was sold at: " + totalPrice;
+        }
+        else {
+            msg+="This product is not available for sale";
+        }
+        return msg;
 	}
 	
 	/**
@@ -282,10 +303,4 @@ public class Shop {
 	public String getName() {
 		return name;
 	}
-
-	
-
-
-	
-
 }

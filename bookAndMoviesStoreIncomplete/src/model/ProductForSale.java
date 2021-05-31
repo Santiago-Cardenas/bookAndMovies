@@ -44,27 +44,33 @@ public class ProductForSale extends Product implements Saleable {
 
     @Override
     public double getSalePrice (int units) {
-        double d=units;
 
-        return d;
+        double price=( ( units*getPrice() ) - discount);
+
+        return price;
     }
 
     @Override
     public boolean isSafeSale (int units){
 
-        boolean x=true;
-        return x;
+        boolean forSale=false;
+
+        if (units>0 && units<=getUnits()){
+            forSale=true;
+        }
+        return forSale;
     }
 
-    @Override
+   @Override
     public double applyExtraDiscount(double subtotal, double percenteageDiscount){
-        double extra=0;
-        return extra;
+        double price= ( subtotal - (subtotal*percenteageDiscount) );
+        return price;
     }
+
 
     @Override
     public double calculateTax (double totalPrice, double percenteage) {
-        double c=0;
-        return c;
+        double price= ( totalPrice + (totalPrice*percenteage) );
+        return price;
     }
 }
