@@ -21,21 +21,21 @@ public class ProductForSale extends Product implements Saleable {
                     "Code: " + getCode() + "\n"+
                     "Product Name:" + getName()+ "\n"+
                     "Units Available: "+ getUnits()+ "\n"+
-                    "Product Price: " + getPrice() + "\n";
+                    "Product Price: " + price + "\n";
 
         switch (getType()){
 
             case BOOK:
-            msg+= "\n" + "Product Type: Book";
+            msg+= "Product Type: Book\n";
             break; 
             case MAGAZINE:
-            msg+= "\n" + "Product Type: Magazine";
+            msg+= "Product Type: Magazine\n";
             break; 
             case DVD_MOVIE:
-            msg+= "\n" + "Product Type: DVD Movie";
+            msg+= "Product Type: DVD Movie\n";
             break; 
             case DOWNLOAD_MOVIE:
-            msg+= "\n" + "Product Type: Downloadable Movie";
+            msg+= "Product Type: Downloadable Movie\n";
             break; 
 
         }
@@ -45,9 +45,9 @@ public class ProductForSale extends Product implements Saleable {
     @Override
     public double getSalePrice (int units) {
 
-        double price=( ( units*getPrice() ) - discount);
+        double totalPrice=( ( units* price) - discount);
 
-        return price;
+        return totalPrice;
     }
 
     @Override
@@ -57,6 +57,7 @@ public class ProductForSale extends Product implements Saleable {
 
         if (units>0 && units<=getUnits()){
             forSale=true;
+            setUnits(getUnits()-units);
         }
         return forSale;
     }

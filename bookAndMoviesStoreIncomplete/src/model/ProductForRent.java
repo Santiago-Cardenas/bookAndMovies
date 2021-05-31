@@ -17,21 +17,22 @@ public class ProductForRent extends Product implements Rentable {
 	 String msg= "               Product Information\n"+
                 "Code: " + getCode() + "\n"+
                 "Product Name:" + getName()+ "\n"+
-                "Product Price: " + getPrice() + "\n";
+                "Product Price: " + price + "\n" +
+                "Product State: " + state + "\n";
 
         switch (getType()){
 
             case BOOK:
-            msg+= "\n" + "Product Type: Book";
+            msg+= "Product Type: Book\n";
             break; 
             case MAGAZINE:
-            msg+= "\n" + "Product Type: Magazine";
+            msg+= "Product Type: Magazine\n";
             break; 
             case DVD_MOVIE:
-            msg+= "\n" + "Product Type: DVD Movie";
+            msg+= "Product Type: DVD Movie\n";
             break; 
             case DOWNLOAD_MOVIE:
-            msg+= "\n" + "Product Type: Downloadable Movie";
+            msg+= "Product Type: Downloadable Movie\n";
             break; 
 
         }
@@ -51,8 +52,8 @@ public class ProductForRent extends Product implements Rentable {
 
     @Override
     public double getRentPrice(int amountDays){
-    	double price=amountDays * getPrice();
-        return price;
+    	double totalPrice=amountDays * price;
+        return totalPrice;
     }
 
     @Override

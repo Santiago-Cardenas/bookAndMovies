@@ -258,8 +258,9 @@ public class Shop {
             totalPrice= p.getSalePrice(units);
             totalPrice= p.applyExtraDiscount(totalPrice,discount);
             totalPrice= p.calculateTax(totalPrice,TAX_IVA);
-            totalSales++;
-            msg+= "The product was sold at: " + totalPrice;
+
+            totalSales+=totalPrice;
+            msg+= "The product was sold at: $" + totalPrice ;
         }
         else {
             msg+="This product is not available for sale";
@@ -297,7 +298,8 @@ public class Shop {
 
 			totalPrice=p.getRentPrice(days);
 			p.rentProduct(days);
-			msg+="The product has been rented at: " + totalPrice + "\n";
+			totalRents+=totalPrice;
+			msg+="The product has been rented at: $" + totalPrice + "\n";
 		}
 		else{
 			msg+="The product cannot be rented\n";
