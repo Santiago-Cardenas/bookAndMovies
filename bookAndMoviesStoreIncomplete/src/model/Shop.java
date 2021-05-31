@@ -121,7 +121,6 @@ public class Shop {
 
 		if(!found){
 			ProductForRent product= new ProductForRent(code,name,price,type);
-			product.setState(State.AVAILABLE);
 			catalog.add(product);
 			msg+="The product has been registered";
 		}
